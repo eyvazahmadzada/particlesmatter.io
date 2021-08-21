@@ -1,19 +1,34 @@
-$(function ($) {
-  // Handle header mobile menu toggle
-  toggleMenu(".mobile_menu", "header-menu-open", ".hamburger, .overlay-body", () => {
-    $("body").removeClass("docs-menu-open");
-  });
+function setup() {
+  createCanvas(400, 420);
+  noStroke();
+}
 
-  // Handle header hide/show on scroll
-  animateHeader();
+function draw() {
+  // red
+  fill(255, 0, 0);
+  rect(0, 0, 400, 60);
 
-  // Color SVGs with data attribute "data-svg" (original SVG color must be #000)
-  colorSvg();
+  // orange
+  fill(255, 165, 0);
+  rect(0, 60, 400, 60);
 
-  // Color target with attribute "data-color_onhover_target" on hover of "data-color_onhover"
-  colorOnHover();
+  // yellow
+  fill(255, 255, 0);
+  rect(0, 120, 400, 60);
 
-  // Set up accodions
-  const accordions = ["docs", "faq"];
-  accordions.forEach((acc) => accordion(`#js-accordion-${acc}`, { showMultiple: true, openOnInit: [0] }));
-});
+  // green
+  fill(0, 255, 0);
+  rect(0, 180, 400, 60);
+
+  // blue
+  fill(0, 0, 255);
+  rect(0, 240, 400, 60);
+
+  // indigo
+  fill(75, 0, 130);
+  rect(0, 300, 400, 60);
+
+  // violet
+  fill(148, 0, 211);
+  rect(0, 360, 400, 60);
+}
