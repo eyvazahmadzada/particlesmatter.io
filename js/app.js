@@ -1,34 +1,75 @@
+class Circle {
+  constructor(x, y, r) {
+    this.p = createVector(x, y);
+    this.r = r;
+  }
+
+  draw() {
+    circle(this.p.x, this.p.y, this.r);
+  }
+}
+
 function setup() {
-  createCanvas(400, 420);
-  noStroke();
+  // Create particles
+  hover = null;
+  grabbed = null;
+  createCanvas(windowWidth, windowHeight);
+  background('#eaeaea');
+  ellipseMode(RADIUS);
+  circles = [];
+  for (let i = 1; i <= 3; i++) {
+    circles.push(new Circle(windowWidth - 100, i * 100, random(10, 30)));
+  }
 }
 
 function draw() {
-  // red
-  fill(255, 0, 0);
-  rect(0, 0, 400, 60);
+  m = createVector(mouseX, mouseY);
+  hover = null;
+  for (let c of circles) {
+    if (m.dist(c.p) < c.r) {
+      hover = c;
+    }
+  }
+  background('#eaeaea');
+  noStroke();
 
-  // orange
-  fill(255, 165, 0);
-  rect(0, 60, 400, 60);
+  // Create game area
+  fill('#fff');
+  noStroke();
+  rect(0, 0, windowWidth - 400, windowHeight);
 
-  // yellow
-  fill(255, 255, 0);
-  rect(0, 120, 400, 60);
+  if (hover) cursor('grab');
+  else cursor(ARROW);
+  for (let c of circles) {
+    if (c == grabbed) {
+      fill(50);
 
-  // green
-  fill(0, 255, 0);
-  rect(0, 180, 400, 60);
+      // Get speed
+      var speed = abs(winMouseX - pwinMouseX);
+      console.log('speed: ' + speed);
 
-  // blue
-  fill(0, 0, 255);
-  rect(0, 240, 400, 60);
+      var angle = atan2(mouseY - pmouseY, mouseX - pmouseX);
+      console.log('direction:' + degrees(angle));
+    } else if (c == hover) fill(100);
+    else {
+      fill(0);
+    }
+    c.draw();
+  }
+}
 
-  // indigo
-  fill(75, 0, 130);
-  rect(0, 300, 400, 60);
+function mousePressed() {
+  if (hover) {
+    grabbed = hover;
+  }
+}
 
-  // violet
-  fill(148, 0, 211);
-  rect(0, 360, 400, 60);
+function mouseReleased() {
+  grabbed = null;
+}
+
+function mouseDragged() {
+  if (grabbed) {
+    grabbed.p.add(createVector(movedX, movedY));
+  }
 }
