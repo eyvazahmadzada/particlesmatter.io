@@ -1,0 +1,291 @@
+/* Background colors */
+@include make-colors($all-colors, bg);
+
+/* Text colors */
+@include make-colors($all-colors);
+
+/* Border colors */
+@include make-colors($all-colors, border);
+
+/* Squares */
+$squares: (
+  xs: (
+    4: 4,
+    8: 8,
+    14: 14,
+    16: 16,
+    18: 18,
+    20: 20,
+    24: 24,
+    26: 26,
+    28: 28,
+    30: 30,
+    32: 32,
+    40: 40,
+    48: 48,
+    104: 104
+  )
+);
+@include make-shape($squares, square);
+
+/* Rectangles */
+$rectangles: (
+  xs: (
+    10: 6,
+    126: 36,
+    140: 40
+  )
+);
+@include make-shape($rectangles);
+
+/* Heights */
+$heights: 8, 16, 24, 26, 40, 48, 50, 52, 56, 60, 64;
+@each $height in $heights {
+  .h-#{$height} {
+    height: #{$height}px;
+  }
+}
+
+/* Container */
+.container-main {
+  padding-left: 16px;
+  padding-right: 16px;
+
+  @media (min-width: map-get($breakpoints, lg)) {
+    padding-left: 112px;
+    padding-right: 112px;
+  }
+}
+
+/* Buttons */
+.btn {
+  @extend .animate;
+  @extend .hover-darken;
+  @extend .active-darken;
+  @extend .fw-500;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0 24px;
+
+  // Types
+  &-primary {
+    @extend .color-white;
+    @extend .bg-radical;
+  }
+
+  &-secondary {
+    @extend .color-white;
+    @extend .bg-azure;
+  }
+
+  &-light {
+    @extend .color-cloud;
+    @extend .bg-white;
+    @extend .border;
+    @extend .border-haze;
+  }
+
+  &-white {
+    @extend .color-cloud;
+    @extend .bg-white;
+  }
+
+  &-dark {
+    @extend .color-white;
+    @extend .bg-cloud;
+  }
+
+  // Sizes
+  &-small {
+    @extend .fs-14;
+    @extend .lh-16;
+    height: 40px;
+  }
+
+  &-medium {
+    @extend .fs-16;
+    @extend .lh-20;
+    height: 48px;
+  }
+
+  &-big {
+    @extend .fs-20;
+    @extend .lh-24;
+    height: 56px;
+  }
+}
+
+// Tags
+.tag {
+  &-light {
+    @extend .bg-white;
+    @extend .border;
+    @extend .border-haze;
+    @extend .fs-14;
+    @extend .lh-20;
+    @extend .fw-400;
+    display: flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 16px;
+    border-radius: 4px;
+  }
+}
+
+// Hamburger toggler button
+.hamburger {
+  display: inline-block;
+  transition-property: opacity, filter;
+  transition-duration: 0.15s;
+  transition-timing-function: linear;
+  font: inherit;
+  color: inherit;
+  text-transform: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+  overflow: visible;
+}
+.hamburger:hover {
+  opacity: 0.7;
+}
+.hamburger.is-active:hover {
+  opacity: 0.7;
+}
+.hamburger.is-active.hamburger-hover-no:hover,
+.hamburger-hover-no:hover {
+  opacity: 1;
+}
+
+.hamburger-box {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hamburger-inner {
+  display: block;
+  top: 50%;
+  margin-top: -2px;
+}
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  @extend .bg-rhino;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  position: absolute;
+  transition-property: transform;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+.hamburger-inner::before,
+.hamburger-inner::after {
+  content: "";
+  display: block;
+  background-color: inherit;
+}
+.hamburger-inner::before {
+  top: -6px;
+}
+.hamburger-inner::after {
+  bottom: -6px;
+}
+
+.hamburger--squeeze .hamburger-inner {
+  transition-duration: 0.075s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.hamburger--squeeze .hamburger-inner::before {
+  transition: top 0.075s 0.12s ease, opacity 0.075s ease;
+}
+.hamburger--squeeze .hamburger-inner::after {
+  transition: bottom 0.075s 0.12s ease, transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.hamburger--squeeze.is-active .hamburger-inner {
+  height: 2px;
+  transform: rotate(45deg);
+  transition-delay: 0.12s;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.hamburger--squeeze.is-active .hamburger-inner::before {
+  top: 0;
+  opacity: 0;
+  transition: top 0.075s ease, opacity 0.075s 0.12s ease;
+}
+.hamburger--squeeze.is-active .hamburger-inner::after {
+  bottom: 0;
+  transform: rotate(-90deg);
+  transition: bottom 0.075s ease, transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.hamburger-border {
+  display: inline-flex;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 9px 11px;
+}
+
+.hamburger-border.hamburger.is-active .hamburger-inner,
+.hamburger-border.hamburger.is-active .hamburger-inner::before,
+.hamburger-border.hamburger.is-active .hamburger-inner::after,
+.hamburger-border .hamburger-inner:before,
+.hamburger-border .hamburger-inner:after,
+.hamburger-border .hamburger-inner {
+  background-color: #fff;
+}
+
+/* Links */
+.link {
+  @extend .animate;
+  @extend .hover-fade;
+  @extend .active-fade;
+
+  // Types
+  &-primary {
+    @extend .color-cloud;
+  }
+
+  &-secondary {
+    @extend .color-rhino;
+  }
+
+  &-blue {
+    @extend .color-dodger;
+  }
+
+  // Sizes
+  &-small {
+    @extend .fs-14;
+    @extend .lh-20;
+  }
+
+  &-medium {
+    @extend .fs-16;
+    @extend .lh-24;
+  }
+}
+
+/* RESPONSIVE */
+@media (min-width: map-get($breakpoints, lg)) {
+  /* Rectangles */
+  $rectangles: (
+    lg: (
+      154: 44
+    )
+  );
+  @include make-shape($rectangles);
+
+  /* Heights */
+  $heights: 8, 16, 24, 26, 40, 48, 50, 52, 56, 60, 64;
+  @each $height in $heights {
+    .h-lg-#{$height} {
+      height: #{$height}px;
+    }
+  }
+}

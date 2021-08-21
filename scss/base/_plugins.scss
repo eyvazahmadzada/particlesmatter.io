@@ -1,0 +1,64 @@
+/* Accordion */
+
+.ac > .ac-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.ac > .ac-panel {
+  overflow: hidden;
+  -webkit-transition-property: all;
+  transition-property: all;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+}
+
+.ac-panel li {
+  display: flex;
+  align-items: center;
+}
+.ac.js-enabled > .ac-panel {
+  visibility: hidden;
+}
+.ac.is-active > .ac-panel {
+  visibility: visible;
+  height: auto;
+}
+
+// Specific
+#js-accordion {
+  &-docs {
+    .ac {
+      margin-bottom: 32px;
+
+      &.is-active {
+        .ac-header i {
+          transform: rotate(180deg);
+        }
+
+        .ac-panel {
+          margin: 24px 0;
+        }
+      }
+    }
+  }
+
+  &-faq {
+    .ac {
+      @extend .border-bottom;
+      @extend .border-catskill-white;
+      padding-bottom: 16px;
+      margin-bottom: 32px;
+
+      &.is-active {
+        .ac-header i {
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+}
+
+/* Accordion End */

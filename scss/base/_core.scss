@@ -1,0 +1,813 @@
+* {
+  @extend .ff-euclid;
+}
+
+body {
+  @extend .color-rhino;
+  position: relative;
+
+  // Open state for different menus
+  &.menu-open {
+    overflow: hidden;
+
+    > .overlay-body {
+      @extend .d-block;
+    }
+  }
+
+  &.header-menu-open {
+    @extend .menu-open;
+
+    .mobile_menu {
+      @extend .open;
+
+      > .hamburger {
+        @extend .is-active;
+      }
+    }
+  }
+}
+
+.header + main {
+  // Content margin to avoid overlaying with header
+  margin-top: $h-header;
+
+  @media (min-width: map-get($breakpoints, lg)) {
+    margin-top: $h-header-lg;
+  }
+}
+
+// Page banner section
+.page_banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image: url("../img/page_banner-bg.png");
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: 16px;
+  padding: 48px 24px 101px 24px;
+  margin: 72px 0 88px 0;
+
+  @media (min-width: map-get($breakpoints, lg)) {
+    flex-direction: row;
+    background-image: url("../img/page_banner-bg-lg.png");
+    background-size: cover;
+    padding: 48px 64px 64px 64px;
+    margin: 120px 0 104px 0;
+  }
+
+  > .btn {
+    width: max-content;
+    margin: 0 auto;
+  }
+
+  &-btns {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    margin-top: 80px;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      margin-top: 24px; // eliminate margins for flex-wrap
+    }
+
+    > a {
+      padding: 0 54px;
+      width: 100%;
+      justify-content: center;
+
+      @media (min-width: map-get($breakpoints, md)) {
+        width: max-content;
+      }
+    }
+  }
+}
+
+// Pagination section
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 100%;
+
+  @media (min-width: map-get($breakpoints, lg)) {
+    width: 600px;
+  }
+
+  &-btn {
+    @extend .fs-16;
+    @extend .lh-20;
+    @extend .fw-400;
+    @extend .animate;
+    @extend .hover-darken;
+    @extend .active-darken;
+    @extend .border;
+    @extend .border-catskill-white;
+    @extend .bg-white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    width: 36px;
+    height: 36px;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      width: auto;
+    }
+
+    &.btn-next i {
+      transform: rotate(270deg);
+    }
+
+    &.btn-prev i {
+      transform: rotate(90deg);
+    }
+  }
+
+  &-bullet {
+    @extend .animate;
+    @extend .hover-darken;
+    @extend .active-darken;
+    @extend .fs-20;
+    @extend .lh-24;
+    @extend .fw-400;
+    @extend .bg-white;
+    border-radius: 8px;
+    height: 40px;
+    padding: 0 10px;
+    margin: 0 8px;
+
+    &.active {
+      @extend .bg-radical;
+      @extend .color-white;
+    }
+  }
+}
+
+// Cards used in more than one page
+.card {
+  &_feature {
+    @extend .bg-white;
+    @extend .color-rhino;
+    @extend .animate;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    box-shadow: 0px 8px 32px rgba(118, 127, 154, 0.08);
+    padding: 24px 16px 32px 16px;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      padding: 24px 32px 60px 32px;
+    }
+
+    &:hover {
+      box-shadow: 0px 24px 32px rgba(118, 127, 154, 0.16);
+    }
+
+    &-icon {
+      border-radius: 12px;
+      position: relative;
+
+      > i {
+        z-index: 5;
+      }
+
+      &::after {
+        @extend .bg-white;
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0.92;
+      }
+    }
+  }
+
+  &_blog {
+    @extend .bg-white;
+    @extend .color-rhino;
+    @extend .animate;
+    @extend .hover-fade;
+    @extend .active-fade;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0px 16px 32px rgba(118, 127, 154, 0.08);
+    padding: 8px;
+
+    > img {
+      border-radius: 8px;
+      min-height: 200px;
+      max-height: 300px;
+    }
+
+    &-content {
+      padding: 24px 8px 8px 8px;
+
+      &--tag {
+        margin-bottom: 16px;
+
+        &:not(:last-child) {
+          margin-right: 16px;
+        }
+      }
+    }
+  }
+}
+
+// Overlay
+.overlay {
+  &-body {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+    background: rgba($color: #2e3a59, $alpha: 0.32);
+  }
+}
+
+// Common content typography styling
+.content {
+  h4 {
+    @extend .fs-lg-34;
+    @extend .fs-24;
+    @extend .lh-lg-40;
+    @extend .lh-32;
+    @extend .fw-500;
+  }
+
+  h5 {
+    @extend .fs-lg-24;
+    @extend .fs-20;
+    @extend .lh-lg-32;
+    @extend .lh-28;
+    @extend .fw-500;
+  }
+
+  h6 {
+    @extend .fs-lg-20;
+    @extend .fs-18;
+    @extend .lh-lg-28;
+    @extend .lh-24;
+    @extend .fw-500;
+  }
+
+  h4,
+  h5,
+  h6 {
+    margin: 24px 0 32px 0;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      margin: 32px 0;
+    }
+  }
+
+  p {
+    @extend .fs-16;
+    @extend .lh-32;
+    @extend .fw-400;
+    @extend .my-3;
+  }
+
+  img {
+    @extend .border;
+    @extend .border-catskill-white;
+    border-radius: 8px;
+    width: 100%;
+    object-fit: cover;
+    @extend .my-3;
+  }
+
+  ol {
+    padding-left: 16px;
+  }
+
+  li > h6 {
+    @extend .fw-400;
+  }
+
+  a {
+    @extend .link;
+    @extend .link-blue;
+    @extend .link-medium;
+  }
+}
+
+// Header
+.header {
+  @extend .animate;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  align-items: center;
+  justify-content: space-between;
+  height: $h-header;
+
+  @media (min-width: map-get($breakpoints, lg)) {
+    height: $h-header-lg;
+  }
+
+  &.hide {
+    top: -100px;
+  }
+
+  &-links {
+    display: inline-flex;
+
+    > a {
+      &:not(:last-child) {
+        @extend .mr-lg-5;
+      }
+
+      &.active {
+        @extend .color-radical;
+      }
+    }
+  }
+}
+
+// Common for all menus
+.menu {
+  @extend .bg-white;
+  @extend .animate;
+  position: fixed;
+  overflow-y: auto;
+}
+
+// Mobile menu
+.mobile_menu {
+  @extend .menu;
+  z-index: 150;
+  padding: 80px 32px 48px 32px;
+  width: 75%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+
+  &.open {
+    left: 0;
+  }
+
+  > .hamburger {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+  }
+
+  &-links {
+    margin-bottom: 82px;
+
+    > a {
+      padding: 12px 0;
+      margin-left: 8px;
+
+      &:not(:last-child) {
+        width: max-content;
+      }
+
+      &.active {
+        @extend .color-radical;
+      }
+    }
+  }
+
+  &-btns {
+    > a {
+      justify-content: center;
+      margin: 0 auto;
+      width: 100%;
+      max-width: 210px;
+    }
+  }
+}
+
+// Footer
+.footer {
+  > .row {
+    @media (min-width: map-get($breakpoints, lg)) {
+      &:first-child {
+        padding-bottom: 32px;
+      }
+    }
+  }
+
+  &-col {
+    &--main {
+      margin-bottom: 40px;
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        margin-bottom: 0;
+      }
+
+      > a {
+        display: block;
+        margin: 56px 0 32px 0;
+      }
+
+      > p {
+        text-align: center;
+
+        @media (min-width: map-get($breakpoints, lg)) {
+          width: 75%;
+          text-align: left;
+        }
+      }
+    }
+
+    &--links {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 40px;
+
+      &:last-child {
+        margin-bottom: 24px;
+      }
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        text-align: left;
+        margin-top: 64px;
+        margin-bottom: 0;
+      }
+
+      &-wrapper > a {
+        display: block;
+        width: max-content;
+
+        &:not(:last-child) {
+          margin-bottom: 16px;
+        }
+      }
+    }
+  }
+
+  &-social_links {
+    display: inline-flex;
+
+    > a {
+      @extend .animate;
+      @extend .active-darken;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      opacity: 0.6;
+
+      &:hover {
+        @extend .bg-catskill;
+      }
+
+      &:not(:last-child) {
+        margin-right: 24px;
+      }
+    }
+  }
+}
+
+// Home page
+.home {
+  // Welcome
+  &-welcome {
+    padding-top: 72px;
+    padding-bottom: 56px;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      padding-top: 111px;
+      padding-bottom: 103px;
+    }
+
+    &--btn {
+      width: max-content;
+      border-radius: 24px;
+    }
+
+    &--img {
+      max-width: 592px;
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        max-width: 100%;
+      }
+    }
+  }
+
+  // About
+  &-about {
+    padding-top: 48px;
+    padding-bottom: 48px;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      padding-top: 96px;
+      padding-bottom: 96px;
+    }
+
+    &--video {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      min-height: auto;
+      height: 216px;
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        min-height: 392px;
+        height: 100%;
+      }
+
+      > div {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba($color: #2e3a59, $alpha: 0.24);
+
+        button {
+          @extend .bg-white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &--line {
+      // @extend .bg-magenta;
+      height: 4px;
+      min-width: 32px;
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        min-width: 72px;
+      }
+    }
+  }
+
+  // Specifications
+  &-specs {
+    padding-top: 88px;
+    padding-bottom: 80px;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      padding-top: 96px;
+      padding-bottom: 144px;
+    }
+
+    &--card {
+      text-align: center;
+
+      &:not(:last-child) {
+        margin-bottom: 64px;
+      }
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        &:not(:last-child) {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  // Features
+  &-features {
+    > h2 {
+      text-align: center;
+      margin-bottom: 48px;
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        margin-bottom: 133px;
+      }
+    }
+
+    &--card {
+      margin-bottom: 88px;
+
+      &:last-child {
+        margin-bottom: 56px;
+      }
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        margin-bottom: 120px;
+
+        &:last-child {
+          margin-bottom: 96px;
+        }
+      }
+    }
+
+    > .link {
+      display: flex;
+      align-items: center;
+      width: max-content;
+      margin: 0 auto;
+    }
+  }
+}
+
+// Blogs page
+.blogs {
+  > .pagination {
+    margin: 64px auto 0 auto;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      margin: 88px auto 0 auto;
+    }
+  }
+
+  &-categories {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 32px auto 24px auto;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      margin: 32px auto;
+    }
+
+    > a {
+      @extend .px-3;
+      @extend .fw-400;
+      @extend .mb-3;
+      height: 32px;
+      white-space: nowrap;
+
+      &:not(:last-child) {
+        @extend .mr-lg-4;
+        @extend .mr-3;
+      }
+    }
+  }
+
+  &-card {
+    &--wrapper {
+      margin-bottom: 32px;
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        margin-bottom: 48px;
+      }
+    }
+
+    &--container {
+      // Remove unnecessary margin caused by last elements
+      margin-bottom: -32px;
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        margin-bottom: -48px;
+      }
+    }
+  }
+}
+
+// Blog page
+.blog {
+  &-header {
+    text-align: center;
+    margin: 24px auto;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      margin: 48px auto 40px auto;
+    }
+  }
+
+  &-row {
+    margin-bottom: 48px;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      margin-bottom: 96px;
+    }
+  }
+
+  &-img {
+    border-radius: 8px;
+    min-height: 240px;
+    max-height: 400px;
+    margin-bottom: 24px;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      margin-bottom: 32px;
+      max-height: 520px;
+    }
+  }
+
+  &-content {
+    margin-top: 8px;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      margin-top: 16px;
+    }
+  }
+}
+
+// Features page
+.features {
+  &-card {
+    &--wrapper {
+      margin-bottom: 32px;
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        margin-bottom: 56px;
+      }
+    }
+
+    &--container {
+      // Remove unnecessary margin caused by last elements
+      margin-bottom: -32px;
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        margin-bottom: -56px;
+      }
+    }
+  }
+}
+
+// Feature page
+.feature {
+  @media (min-width: map-get($breakpoints, lg)) {
+    padding-top: 16px;
+  }
+}
+
+// Documentation page
+.docs {
+  &-header {
+    text-align: center;
+    margin: 24px 0 48px 0;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      margin: 48px 0 64px 0;
+    }
+  }
+
+  &-accordion {
+    @extend .border-lg-right;
+    @extend .border-haze;
+
+    @media (min-width: map-get($breakpoints, lg)) {
+      padding: 8px 54px 0 24px;
+    }
+
+    &--links > a {
+      @extend .color-rhino;
+      position: relative;
+      padding-left: 16px;
+
+      &::before {
+        @extend .bg-rhino;
+        content: "";
+        position: absolute;
+        left: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+      }
+
+      &.active {
+        @extend .color-radical;
+
+        &::before {
+          @extend .bg-radical;
+        }
+      }
+    }
+
+    &--content {
+      @extend .border-top;
+      @extend .border-bottom;
+      @extend .border-catskill-white;
+      padding: 32px 0;
+    }
+  }
+
+  &-content {
+    &--header {
+      margin-bottom: 24px;
+
+      @media (min-width: map-get($breakpoints, lg)) {
+        margin-bottom: 32px;
+      }
+    }
+  }
+}

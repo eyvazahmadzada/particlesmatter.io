@@ -1,0 +1,47 @@
+// Make text, background, and border colors
+@mixin make-colors($colors-arr, $property: color) {
+  @each $name, $color in $colors-arr {
+    $name: str-replace(to-string($name), "#", "");
+
+    @if ($color == null) {
+      $color: str-replace(to-string($name), "#", "");
+    } @else {
+      $color: str-replace(to-string($color), "#", "");
+    }
+
+    $property-css: color;
+    @if ($property == bg) {
+      $property-css: background-color;
+    }
+
+    @if ($property == border) {
+      $property-css: border-color;
+    }
+
+    .#{$property}-#{$name} {
+      #{$property-css}: #{$color};
+    }
+  }
+}
+
+// Make squares and rectangles
+@mixin make-shape($shape-arr, $shape: rect) {
+  @each $break-point, $size-arr in $shape-arr {
+    @each $width, $height in $size-arr {
+      $name: #{$width}-#{$height};
+      @if ($shape == square) {
+        $name: #{$width};
+      }
+
+      @if ($break-point != xs) {
+        $name: #{$break-point}-#{$name};
+      }
+      $name: #{$shape}-#{$name};
+
+      .#{$name} {
+        width: #{$width}px;
+        height: #{$height}px;
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+$breakpoints: (
+  xs: 360px,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1440px
+);
+
+$h-header-lg: 97px;
+$h-header: 72px;
+
+:root {
+  --white: #ffffff;
+  --rhino: #2e3a59;
+  --dodger: #3366ff;
+  --catskill: #edf1f7;
+  --catskill-white: #e4e9f2;
+  --haze: #c5cee0;
+  --cloud: #222b45;
+  --radical: #ff3d71;
+  --alabaster: #f8f8f8;
+  --azure: #0095ff;
+}
+
+// Color names: https://chir.ag/projects/name-that-color
+$all-colors: (
+  white: var(--white),
+  rhino: var(--rhino),
+  dodger: var(--dodger),
+  catskill: var(--catskill),
+  catskill-white: var(--catskill-white),
+  haze: var(--haze),
+  cloud: var(--cloud),
+  radical: var(--radical),
+  alabaster: var(--alabaster),
+  azure: var(--azure)
+);
