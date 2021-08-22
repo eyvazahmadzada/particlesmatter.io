@@ -4,16 +4,25 @@ let speed, angle;
 let movers = [];
 let circles = [];
 class Circle {
-  constructor(x, y, r) {
-    this.x = x;
-    this.y = y;
-    this.r = r;
+  
+  constructor(m, x, y, text, color='black', r=null) {
     this.p = createVector(x, y);
     this.pOriginal = createVector(x, y);
+    this.m = m;
+    this.r = (r === null) ? Math.cbrt(m) : r;
+    this.text = text
+    this.color = color
+
   }
 
   draw() {
-    circle(this.p.x, this.p.y, this.r);
+    fill(this.color);
+    noStroke();
+    ellipse(this.p.x, this.p.y, this.r);
+    fill("black");
+    textSize(this.r);
+    text(this.text, this.p.x - this.r/4, this.p.y + this.r/4)
+    // circle(this.p.x, this.p.y, this.r);
   }
 }
 
@@ -26,18 +35,30 @@ function setup() {
   background(bg);
   ellipseMode(RADIUS);
 
-  const particles = [
-    { name: 'Proton', mass: 938, color: '#FF0000', isUnlocked: true },
-  ];
+  // for (let i = 1; i <= 3; i++) {
+  //   circles.push(new Circle(windowWidth - 100, i * 100, random(20, 10000)));
+  // }
+  i = 100
+  j = 75
+  circles.push(new Circle(2.2, windowWidth - 100, i + 0*j, 'u', 'red', 20));
+  circles.push(new Circle (4.7, windowWidth - 100, i + 1*j, 'u', 'blue', 20));
+  circles.push(new Circle (4.7, windowWidth - 100, i + 2*j, 'u', 'green', 20));
+  circles.push(new Circle (4.7, windowWidth - 100, i + 3*j, 'd', 'red', 20));
+  circles.push(new Circle (4.7, windowWidth - 100, i + 4*j, 'd', 'blue', 20));
+  circles.push(new Circle (4.7, windowWidth - 100, i + 5*j, 'd', 'green', 20));
 
-  particles.forEach(function (particle, i) {
-    circles.push({
-      name: particle.name,
-      color: particle.color,
-      unlocked: particle.isUnlocked,
-      circle: new Circle(windowWidth - 200, (i+1) * 100, particle.mass * 0.01),
-    });
-  });
+  // const particles = [
+  //   { name: 'Proton', mass: 938, color: '#FF0000', isUnlocked: true },
+  // ];
+
+  // particles.forEach(function (particle, i) {
+  //   circles.push({
+  //     name: particle.name,
+  //     color: particle.color,
+  //     unlocked: particle.isUnlocked,
+  //     circle: new Circle(2.2, windowWidth - 200, (i+1) * 100, particle.mass * 0.01),
+  //   });
+  // });
 
   // Create buttons
   const btns = ['Restart', 'Settings', 'Hint', 'Learn'];
@@ -53,6 +74,7 @@ function setup() {
 
 function restart() {
   console.log('test');
+
 }
 
 function learn() {
@@ -67,7 +89,7 @@ function draw() {
   m = createVector(mouseX, mouseY);
   hover = null;
   for (let c of circles) {
-    if (m.dist(c.circle.p) < c.circle.r && c.unlocked) {
+    if (m.dist(c.p) < c.r) {
       hover = c;
     }
   }
@@ -103,10 +125,10 @@ function draw() {
     }
 
     fill(pColor);
-    c.circle.draw();
+    c.draw();
       
     fill(white);
-    text(c.name, c.circle.x + c.circle.r + 10, c.circle.y + (c.circle.r / 2));
+    text(c.name, c.x + c.r + 10, c.y + (c.r / 2));
   }
 
 
@@ -117,6 +139,15 @@ function draw() {
 		// mover.edges();
 		mover.show();
 	})
+
+  // Gravity
+	// for (let i =0; i < movers.length; i++) {
+	// 	for (let j = 0; j < movers.length; j++){
+  //     if (i == j)
+  //       continue
+	// 		movers[i].attract(movers[j]);
+	// 	}
+	// }
 
 	for (let i =0; i < movers.length; i++) {
 		for (let j = 0; j < movers.length; j++){
@@ -159,10 +190,21 @@ function mouseReleased() {
   console.log("Speed: " , speed)
   console.log("Angle :", angle)
   if (isGameBoard(mouseX, mouseY)){
-    grabbed.circle.p.set(grabbed.circle.pOriginal);
+    grabbed.p.set(grabbed.pOriginal);
     vel = createVector(constrain(speed * Math.cos(angle), -5, 5), constrain(speed * Math.sin(angle), -5, 5));
     console.log(vel)
-    movers.push(new Mover(20, mouseX, mouseY, 'black', grabbed.circle.r, vel));
+
+
+    let quark;
+    if (grabbed.text === 'u') { // UpQuark
+      quark = new upQuark(mouseX, mouseY, grabbed.color, vel);
+    } else if (grabbed.text === 'd') {
+      quark = new downQuark(mouseX, mouseY, grabbed.color, vel);
+    }
+    movers.push(quark);
+
+    // movers.push(new Mover(20, mouseX, mouseY, 'black', grabbed.circle.r, vel));
+    toastr.clear();
   }
 
   grabbed = null;
@@ -170,7 +212,7 @@ function mouseReleased() {
 
 function mouseDragged() {
   if (grabbed) {
-    grabbed.circle.p.add(createVector(movedX, movedY));
+    grabbed.p.add(createVector(movedX, movedY));
   }
 }
 
