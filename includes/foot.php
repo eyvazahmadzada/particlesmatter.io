@@ -4,6 +4,7 @@
 
     <script defer src="js/functions.js?v=<?= time() ?>"></script>
     <script defer src="js/app.js?v=<?= time() ?>"></script>
+    <script defer src="js/mover.js?v=<?= time() ?>"></script>
 </body>
 
 </html>
