@@ -1,12 +1,13 @@
 class Mover {
   // vel is a Vector (x, y)
-  constructor(m, x, y, color = "black", r = null, vel = null) {
+  constructor(m, x, y, text, color = "black", r = null, vel = null) {
     this.pos = createVector(x, y);
     this.vel = vel === null ? p5.Vector.random2D() : vel;
     this.acc = createVector(0, 0);
     this.m = m;
     this.r = r === null ? Math.cbrt(this.m) : r;
     this.color = color;
+    this.text = text;
   }
 
   applyForce(force) {
@@ -15,6 +16,14 @@ class Mover {
 
   update() {
     this.vel.add(this.acc);
+    if (this.acc.x >= 30)
+      this.acc.x = 30
+    if (this.acc.x >= 30)
+      this.acc.y = 30
+    if (this.vel.x >= 30)
+      this.vel.x = 30
+    if (this.vel.y >= 30)
+      this.vel.y = 30
     this.pos.add(this.vel);
     this.acc.mult(0);
   }
@@ -43,13 +52,16 @@ class Mover {
     fill(this.color);
     noStroke();
     ellipse(this.pos.x, this.pos.y, this.r);
+    fill("black");
+    textSize(this.r);
+    text(this.text, this.pos.x - this.r/4, this.pos.y + this.r/4)
   }
 
   attract(mover) {
     let force = p5.Vector.sub(this.pos, mover.pos);
     let distanceSq = constrain(force.magSq(), 20, 250);
 
-    let G = 0.001;
+    let G = 0;
     let strength = (G * (this.m * mover.m)) / distanceSq;
     force.setMag(strength);
     mover.applyForce(force);
