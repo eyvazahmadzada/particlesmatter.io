@@ -12,6 +12,7 @@
     <title>Particles Matter!</title>
 
     <link rel='icon' href='img/favicon.ico' type='image/x-icon' />
+    <link rel="stylesheet" href="css/toastr.min.css">
     <link rel="stylesheet" href="css/style.min.css">
 </head>
 
