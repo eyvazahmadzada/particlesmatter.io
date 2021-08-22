@@ -5,9 +5,9 @@
 
 
 	
-<div id="post-1435" class="content entry post-1435 post type-post status-publish format-standard hentry category-particle-physics">
+<div id="post-1435" class="content container-main py-5 entry post-1435 post type-post status-publish format-standard hentry category-particle-physics">
 
-	<h2><a href="https://muon.wordpress.com/2019/02/24/miracles-when-you-use-the-right-metric/">Miracles when you use the right&nbsp;metric</a></h2>
+	<h2>Miracles when you use the right&nbsp;metric</h2>
 
 	<p>I recommend reading, <em>carefully and thoughtfully</em>, the preprint &#8220;The Metric Space of Collider Events&#8221; by Patrick Komiske, Eric Metodiev, and Jesse Thaler (<a href="http://arxiv.org/abs/1902.02346" rel="noopener noreferrer" target="_blank">arXiv:1902.02346</a>).  There is a lot here, perhaps somewhat cryptically presented, but much of it is exciting.</p>
 <p>First, you have to understand what the <a href="https://en.wikipedia.org/wiki/Earth_mover%27s_distance" rel="noopener noreferrer" target="_blank">Earth Mover&#8217;s Distance</a> (EMD) is.   This is easier to understand than the <a href="https://en.wikipedia.org/wiki/Wasserstein_metric" rel="noopener noreferrer" target="_blank">Wasserstein Metric</a> of which it is a special case.  The EMD is a measure of how different two pdfs (probability density functions) are and it is rather different than the usual chi-squared or mean integrated squared error because it emphasizes separation rather than overlap.  The idea is look at how much work you have to do to reconstruct one pdf from another, where &#8220;reconstruct&#8221; means transporting a portion of the first pdf a given distance.  You keep track of the &#8220;work&#8221; you do, which means the amount of area (i.e.,&#8221;energy&#8221; or &#8220;mass&#8221;) you transport and how far you transport it.  The <a href="https://en.wikipedia.org/wiki/Earth_mover%27s_distance" rel="noopener noreferrer" target="_blank">Wikipedia article</a> aptly makes an analogy with suppliers delivering piles of stones to customers.  The EMD is the smallest effort required.</p>

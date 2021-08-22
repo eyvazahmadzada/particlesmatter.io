@@ -483,6 +483,10 @@ body {
 
 // Home page
 .home {
+  background: url('../img/bg.png') no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+
   // Welcome
   &-welcome {
     padding-top: 72px;

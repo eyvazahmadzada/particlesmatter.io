@@ -55,6 +55,10 @@ function restart() {
   console.log('test');
 }
 
+function learn() {
+  window.open('https://localhost/particlesmatter.io/blog.php', '_blank').focus();
+}
+
 function draw() {
   textSize(20);
   fill('#fff');

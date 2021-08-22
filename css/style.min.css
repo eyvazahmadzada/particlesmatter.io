@@ -1407,7 +1407,7 @@ textarea:focus, input:focus { outline: none; }
   .h-lg-60 { height: 60px; }
   .h-lg-64 { height: 64px; } }
 
-body { position: relative; background: url("../img/bg.png") no-repeat center center; background-size: cover; height: 100vh; }
+body { position: relative; }
 
 body.menu-open, body.header-menu-open { overflow: hidden; }
 
@@ -1526,6 +1526,8 @@ body.menu-open, body.header-menu-open { overflow: hidden; }
 .footer-social_links > a { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; -webkit-box-pack: center; -ms-flex-pack: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; opacity: 0.6; }
 
 .footer-social_links > a:not(:last-child) { margin-right: 24px; }
+
+.home { background: url("../img/bg.png") no-repeat center center; background-size: cover; height: 100vh; }
 
 .home-welcome { padding-top: 72px; padding-bottom: 56px; }
 
