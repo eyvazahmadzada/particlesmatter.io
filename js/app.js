@@ -159,7 +159,6 @@ function mouseReleased() {
     vel = createVector(constrain(speed * Math.cos(angle), -5, 5), constrain(speed * Math.sin(angle), -5, 5));
     console.log(vel)
     movers.push(new Mover(20, mouseX, mouseY, 'black', grabbed.circle.r, vel));
-    toastr.clear();
   }
 
   grabbed = null;
