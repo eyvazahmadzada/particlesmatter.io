@@ -20,21 +20,21 @@ class Mover {
   }
 
   edges() {
-    var height = windowHeight
-    var width = windowWidth - 400
+    var height = windowHeight;
+    var width = windowWidth * 0.8 - 5;
     if (this.pos.y >= height-this.r) {
       this.pos.y = height-this.r;
       this.vel.y *= -1;
-    } else if (this.pos.y <= this.r) {
-      this.pos.y = this.r;
+    } else if (this.pos.y <= this.r + 70) {
+      this.pos.y = this.r + 70;
       this.vel.y *= -1;
     }
 
-    if (this.pos.x >= width-this.r) {
+    if (this.pos.x >= width - this.r) {
       this.pos.x = width-this.r;
       this.vel.x *= -1;
-    } else if (this.pos.x <= this.r) {
-      this.pos.x = this.r;
+    } else if (this.pos.x <= this.r + windowWidth * 0.1) {
+      this.pos.x = this.r + windowWidth * 0.1;
       this.vel.x *= -1;
     }
   }

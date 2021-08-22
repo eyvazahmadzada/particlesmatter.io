@@ -1,11 +1,15 @@
+let bg;
+let mouseInfoShown = false;
 let speed, angle;
 let movers = [];
 let circles = [];
 class Circle {
   constructor(x, y, r) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
     this.p = createVector(x, y);
     this.pOriginal = createVector(x, y);
-    this.r = r;
   }
 
   draw() {
@@ -17,29 +21,58 @@ function setup() {
   // Create particles
   hover = null;
   grabbed = null;
+  bg = loadImage('img/bg.png');
   createCanvas(windowWidth, windowHeight);
-  background('#eaeaea');
+  background(bg);
   ellipseMode(RADIUS);
-  for (let i = 1; i <= 3; i++) {
-    circles.push(new Circle(windowWidth - 100, i * 100, random(5, 15)));
-  }
+
+  const particles = [
+    { name: 'Proton', mass: 938, color: '#FF0000', isUnlocked: true },
+  ];
+
+  particles.forEach(function (particle, i) {
+    circles.push({
+      name: particle.name,
+      color: particle.color,
+      unlocked: particle.isUnlocked,
+      circle: new Circle(windowWidth - 200, (i+1) * 100, particle.mass * 0.01),
+    });
+  });
+
+  // Create buttons
+  const btns = ['Restart', 'Settings', 'Hint', 'Learn'];
+
+  btns.forEach(function (btn, i) {
+    background(0);
+    button = createImg('img/' + btn.toLowerCase() + '.png');
+    button.position(50, (i + 1) * 100);
+    button.style('cursor', 'pointer');
+    button.mousePressed(window[btn.toLowerCase()]);
+  });
+}
+
+function restart() {
+  console.log('test');
 }
 
 function draw() {
+  textSize(20);
+  fill('#fff');
+  text('Challenge 1: Particle Interactions', windowWidth * 0.1, 50);
+
   m = createVector(mouseX, mouseY);
   hover = null;
   for (let c of circles) {
-    if (m.dist(c.p) < c.r) {
+    if (m.dist(c.circle.p) < c.circle.r && c.unlocked) {
       hover = c;
     }
   }
-  background('#eaeaea');
+  background(bg);
   noStroke();
 
   // Create game area
-  fill('#fff');
-  noStroke();
-  rect(0, 0, windowWidth - 400, windowHeight);
+  noFill();
+  rect(windowWidth * 0.1, 0, windowWidth * 0.7, windowHeight);
 
   if (hover) cursor('grab');
   else cursor(ARROW);
@@ -56,7 +89,20 @@ function draw() {
     else {
       fill(0);
     }
-    c.draw();
+    
+    pColor = color(c.color);
+    white = color('#fff');
+    
+    if (!c.unlocked) {
+      pColor.setAlpha(100);
+      white.setAlpha(100);
+    }
+
+    fill(pColor);
+    c.circle.draw();
+      
+    fill(white);
+    text(c.name, c.circle.x + c.circle.r + 10, c.circle.y + (c.circle.r / 2));
   }
 
 
@@ -85,6 +131,10 @@ function draw() {
 function mousePressed() {
   if (hover) {
     grabbed = hover;
+    if (!mouseInfoShown) {
+      toastr.success('Particle speed and direction is detected by your mouse movements.', 'Info');
+      mouseInfoShown = true;
+    }
   }
 }
 
@@ -92,10 +142,11 @@ function mouseReleased() {
   console.log("Speed: " , speed)
   console.log("Angle :", angle)
   if (isGameBoard(mouseX, mouseY)){
-    grabbed.p.set(grabbed.pOriginal);
+    grabbed.circle.p.set(grabbed.circle.pOriginal);
     vel = createVector(constrain(speed * Math.cos(angle), -5, 5), constrain(speed * Math.sin(angle), -5, 5));
     console.log(vel)
-    movers.push(new Mover(20, mouseX, mouseY, 'black', grabbed.r, vel));
+    movers.push(new Mover(20, mouseX, mouseY, 'black', grabbed.circle.r, vel));
+    toastr.clear();
   }
 
   grabbed = null;
@@ -103,12 +154,19 @@ function mouseReleased() {
 
 function mouseDragged() {
   if (grabbed) {
-    grabbed.p.add(createVector(movedX, movedY));
+    grabbed.circle.p.add(createVector(movedX, movedY));
   }
 }
 
 function isGameBoard(x, y) {
-  if(x > windowWidth - 400)
+  if(x < windowWidth * 0.1 && x > windowWidth * 0.8)
     return false;
   return true;
 }
+
+toastr.options.showMethod = 'slideDown';
+toastr.options.hideMethod = 'slideUp';
+toastr.options.closeMethod = 'slideUp';
+
+toastr.options.preventDuplicates = true;
+toastr.options.timeOut = 5000;
