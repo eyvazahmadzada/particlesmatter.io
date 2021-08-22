@@ -2,10 +2,11 @@ let speed, angle;
 let movers = [];
 let circles = [];
 class Circle {
-  constructor(x, y, r) {
+  constructor(x, y, m, r=null) {
     this.p = createVector(x, y);
     this.pOriginal = createVector(x, y);
-    this.r = r;
+    this.m = m;
+    this.r = (r === null) ? Math.cbrt(m) : r;
   }
 
   draw() {
@@ -21,7 +22,7 @@ function setup() {
   background('#eaeaea');
   ellipseMode(RADIUS);
   for (let i = 1; i <= 3; i++) {
-    circles.push(new Circle(windowWidth - 100, i * 100, random(5, 15)));
+    circles.push(new Circle(windowWidth - 100, i * 100, random(20, 10000)));
   }
 }
 
@@ -60,10 +61,11 @@ function draw() {
   }
 
 
+
 	movers.map(mover => {
 		// mover.applyForce(wind);
 		mover.update();
-		mover.edges();
+		// mover.edges();
 		mover.show();
 	})
 
@@ -75,11 +77,23 @@ function draw() {
 		}
 	}
 
-  for (var i = 0; i < movers.length - 1; i++) {
-    for (var j = i + 1; j < movers.length; j++) {
-      movers[i].checkCollisions(movers[j]);
+  // for (var i = 0; i < movers.length - 1; i++) {
+  //   for (var j = i + 1; j < movers.length; j++) {
+  //     movers[i].checkCollisions(movers[j]);
+  //   }
+  // }
+  //ball collisoin
+  for (let i =0; i < movers.length -1; i++) {
+    for(let j = i + 1; j < movers.length; j++) {
+      movers[i].ballCollision(movers[j]) 
     }
+
+    movers[i].edges()
+    // wallCollision(objArray[i]);
   }
+  
+  if (movers.length > 0) movers[movers.length - 1].edges();
+
 }
 
 function mousePressed() {
