@@ -5,9 +5,6 @@
 body {
   @extend .color-rhino;
   position: relative;
-  background: url('../img/bg.png') no-repeat center center;
-  background-size: cover;
-  height: 100vh;
 
   // Open state for different menus
   &.menu-open {
@@ -486,6 +483,10 @@ body {
 
 // Home page
 .home {
+  background: url('../img/bg.png') no-repeat center center;
+  background-size: cover;
+  height: 100vh;
+
   // Welcome
   &-welcome {
     padding-top: 72px;

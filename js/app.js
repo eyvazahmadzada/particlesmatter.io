@@ -77,6 +77,10 @@ function restart() {
 
 }
 
+function learn() {
+  window.open('https://localhost/particlesmatter.io/blog.php', '_blank').focus();
+}
+
 function draw() {
   textSize(20);
   fill('#fff');
@@ -189,6 +193,7 @@ function mouseReleased() {
     grabbed.p.set(grabbed.pOriginal);
     vel = createVector(constrain(speed * Math.cos(angle), -5, 5), constrain(speed * Math.sin(angle), -5, 5));
     console.log(vel)
+
 
     let quark;
     if (grabbed.text === 'u') { // UpQuark
