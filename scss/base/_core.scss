@@ -5,6 +5,9 @@
 body {
   @extend .color-rhino;
   position: relative;
+  background: url('../img/bg.png') no-repeat center center;
+  background-size: cover;
+  height: 100vh;
 
   // Open state for different menus
   &.menu-open {
