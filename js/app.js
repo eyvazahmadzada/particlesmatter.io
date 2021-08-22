@@ -106,10 +106,11 @@ function draw() {
   }
 
 
+
 	movers.map(mover => {
 		// mover.applyForce(wind);
 		mover.update();
-		mover.edges();
+		// mover.edges();
 		mover.show();
 	})
 
@@ -121,11 +122,23 @@ function draw() {
 		}
 	}
 
-  for (var i = 0; i < movers.length - 1; i++) {
-    for (var j = i + 1; j < movers.length; j++) {
-      movers[i].checkCollisions(movers[j]);
+  // for (var i = 0; i < movers.length - 1; i++) {
+  //   for (var j = i + 1; j < movers.length; j++) {
+  //     movers[i].checkCollisions(movers[j]);
+  //   }
+  // }
+  //ball collisoin
+  for (let i =0; i < movers.length -1; i++) {
+    for(let j = i + 1; j < movers.length; j++) {
+      movers[i].ballCollision(movers[j]) 
     }
+
+    movers[i].edges()
+    // wallCollision(objArray[i]);
   }
+  
+  if (movers.length > 0) movers[movers.length - 1].edges();
+
 }
 
 function mousePressed() {
